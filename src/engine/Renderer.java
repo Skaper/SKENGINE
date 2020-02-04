@@ -15,7 +15,7 @@ public class Renderer {
 		pH = gc.getHeight();
 		p = ((DataBufferInt)gc.getWindow().getImage().getRaster().getDataBuffer()).getData();
 	}
-	
+
 	public void clear() {
 		for(int i = 0; i<p.length; i++) {
 			p[i] = 0xFF000000;
@@ -35,27 +35,30 @@ public class Renderer {
 			p[index] = value;
 		}else {
 			int pixelColor = p[index];
-			int newRed = ((pixelColor >> 16) & 0xff) - 
+			int newRed = ((pixelColor >> 16) & 0xff) -
 					(int)((((pixelColor >> 16) & 0xff) - ((value >> 16) & 0xff))  * (alpha / 255f));
 			int newGreen = ((pixelColor >> 8) & 0xff) -
 					(int)((((pixelColor >> 8) & 0xff) - ((value >> 8) & 0xff))  * (alpha / 255f));
-			
+
 			int newBlue = (pixelColor & 0xff) - (int)(((pixelColor & 0xff) - (value & 0xff)) * (alpha /255f));
 			p[index] = (255 << 24 | newRed << 16 | newGreen << 8 | newBlue);
 		}
 	}
 
 	public void drawImageUI(Sprite sprite){
-		sprite.position.x = camX;
-		sprite.position.y = camY;
+		float newX = sprite.position.x + camX;
+		float newY = sprite.position.y + camY;
+
+		drawImageLogic(sprite, newX, newY);
+	}
+	public void drawImage(Sprite sprite){
 		if (!((Math.abs(sprite.position.x  + sprite.getWidth()/2f - getCamCenterX()) < sprite.getWidth()/2f + pW/2f) &&
 				(Math.abs(sprite.position.y + sprite.getHeight()/2f - getCamCenterY()) <  sprite.getHeight()/2f + pH/2f)))
 		{
 			return;
 		}
-		drawImageLogic(sprite);
+		drawImageLogic(sprite, sprite.position.x, sprite.position.y);
 	}
-	public void drawImage(Sprite sprite){drawImageLogic(sprite);}
 
 	public void drawTextUI(String text, float posX, float posY, float size, int color){
 		posX+=camX;
@@ -82,11 +85,11 @@ public class Renderer {
 	}
 	public void drawCircle(float centerX, float centerY, float radius, int color){drawCircleLogic(centerX, centerY, radius, color);}
 
-	private void drawImageLogic(Sprite sprite) {
-	    if(sprite == null) return;
+	private void drawImageLogic(Sprite sprite, float newX, float newY) {
+		if(sprite == null) return;
 
-		int offX = Math.round(sprite.position.x);
-		int offY = Math.round(sprite.position.y);
+		int offX = Math.round(newX);
+		int offY = Math.round(newY);
 
 		int newWidth = sprite.getWidth();
 		int newHeight = sprite.getHeight();
@@ -101,7 +104,7 @@ public class Renderer {
 			}
 		}
 	}
-	
+
 	private void drawTextLogic(String text, float posX, float posY, float size, int color) {
 		int offX = Math.round(posX);
 		int offY = Math.round(posY);
@@ -112,7 +115,7 @@ public class Renderer {
 		for(char ch: text.toCharArray()) {
 			FontSymbol sym = font.getSymbolPixels(ch);
 			if(ch == '\n') {
-				offsetY += (offSetDefault *2f);
+				offsetY += offSetDefault;
 				offset = 0;
 				continue;
 			}
@@ -132,7 +135,7 @@ public class Renderer {
 			}
 			offset += w;
 		}
-		 
+
 	}
 
 	private void drawRectLogic(float startX, float startY, float endX, float endY, int color){
