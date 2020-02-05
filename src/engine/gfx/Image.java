@@ -38,14 +38,42 @@ public class Image {
         }
         width = image.getWidth();
         height = image.getHeight();
+
         scaledWidth = image.getWidth();
         scaledHeight = image.getHeight();
         pixels = image.getRGB(0, 0, width, height, null, 0, width);
+        if(!path.contains("fonts")) resizeFrame();
         scalePixels = pixels.clone();
         image.flush();
         rotatedPixelsBuffer = new HashMap<>();
     }
+    private void resizeFrame(){
+        if(width < height){
+            int addW = (height-width)/2;
+            int[] temp =new int[height*height];
 
+            for(int y=0; y < height; y++) {
+                for(int x = 0; x < width; x++) {
+                    int color = pixels[x + y * width];
+                    temp[(x+addW) + (y) * height] = color;
+                }
+            }
+            pixels = temp;
+            width = height;
+        }else if(width > height){
+            int addH = (width-height)/2;
+            int[] temp =new int[width*width];
+
+            for(int y=0; y < height; y++) {
+                for(int x = 0; x < width; x++) {
+                    int color = pixels[x + y * width];
+                    temp[(x) + (y+addH) * width] = color;
+                }
+            }
+            pixels = temp;
+            height = width;
+        }
+    }
     private void scale(float scaleW,float scaleH) {
         int w1 = this.width;
         int h1 = this.height;

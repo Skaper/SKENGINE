@@ -66,7 +66,9 @@ public class Renderer {
 		drawTextLogic(text, posX, posY, size, color);
 
 	}
-	public void drawText(String text, float posX, float posY, float size, int color){drawTextLogic(text, posX, posY, size, color);}
+	public void drawText(String text, float posX, float posY, float size, int color){
+		drawTextLogic(text, posX, posY, size, color);
+	}
 
 
 	public void drawRectUI(float startX, float startY, float endX, float endY, int color){
@@ -111,7 +113,7 @@ public class Renderer {
 		text = text.toUpperCase();
 		int offset = 0;
 		int offsetY = 0;
-		int offSetDefault = font.getSymbolPixels(' ').getHeight();
+		int offSetDefault = (int)(font.getSymbolPixels(' ').getHeight()*size/1.5f);
 		for(char ch: text.toCharArray()) {
 			FontSymbol sym = font.getSymbolPixels(ch);
 			if(ch == '\n') {
