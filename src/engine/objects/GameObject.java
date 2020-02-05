@@ -92,7 +92,7 @@ public abstract class GameObject implements Layouts{
 	public void updateContent(GameEngine gc, float dt){
 		if(skin!=null) {
 			if (scale != lastScale) {
-				skin.scale(scale, scale);
+				skin.scale(scale);
 				this.height = skin.getHeight();
 				this.width = skin.getWidth();
 				lastScale = scale;

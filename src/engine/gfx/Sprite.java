@@ -74,11 +74,11 @@ public class Sprite{
 		currentAngle = angle;
 	}
 
-	public void scale(float scaleW,float scaleH) {
-		if(scaleW == this.scaleW && scaleH == this.scaleH) return;
-		this.scaleH = scaleH;
-		this.scaleW = scaleW;
-		Image scaledImage = ResourceLoader.getImage(imagePath).getScaled(scaleW, scaleH);
+	public void scale(float value) {
+		if(value == this.scaleW && value == this.scaleH) return;
+		this.scaleH = value;
+		this.scaleW = value;
+		Image scaledImage = ResourceLoader.getImage(imagePath).getScaled(value, value);
 		this.pixels = scaledImage.getScalePixels();
 		this.width = scaledImage.getScaledWidth();
 		this.height = scaledImage.getScaledHeight();

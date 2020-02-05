@@ -18,6 +18,7 @@ public class ExampleGameObject extends GameObject {
 
         ship1 = new Sprite("/images/ship1.png", new Vector2(100, 400));
         ship2 = new Sprite("/images/ship2.png", new Vector2(300, 400));
+        ship2.scale(1.7f);
     }
     float angle = 0f;
     @Override

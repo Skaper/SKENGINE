@@ -42,11 +42,11 @@ public class Animation {
 			animationImgs.clear();
 			for(int i = 0; i < tempImgs.size(); i++){
 				Sprite sprite = new Sprite(tempImgs.get(i));
-				sprite.scale(value, value);
+				sprite.scale(value);
 				animationImgs.add(sprite);
 			}
 		}else{
-			currentSprite.scale(value, value);
+			currentSprite.scale(value);
 		}
 	}
 
