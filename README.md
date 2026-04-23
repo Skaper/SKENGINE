@@ -12,3 +12,4 @@ Supports:
 * sound system.
 
 This game engine was developed especially for my own programming course “Java for Beginners”, to demonstrate the basics principles of game development. During the course students developed a space-shooter game based on this engine. Source code: https://github.com/Skaper/FlyShip 
+[![Watch the video](https://img.youtube.com/vi/DctP6MWqv8Q/0.jpg)](https://www.youtube.com/watch?v=DctP6MWqv8Q)
